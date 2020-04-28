@@ -24,6 +24,7 @@ app.listen(port, () => console.log(`Listening on port ${port}`))
 
 const corsMiddleware = cors({
   origin: process.env.CORS_ORIGIN,
+  allowedHeaders: ['Content-Type'],
   credentials: true
 })
 
