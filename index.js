@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const express = require('express')
 const router = express.Router()
 const nodemailer = require('nodemailer');
@@ -5,6 +7,7 @@ const nodemailer = require('nodemailer');
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+app.use('/', router)
 
 const normalizePort = (val) => {
   let port = parseInt(val, 10);
@@ -17,23 +20,25 @@ const normalizePort = (val) => {
 const port = normalizePort('3000')
 app.listen(port, () => console.log(`Listening on port ${port}`))
 
+const user = process.env.MAIL_USER
+const pass = process.env.MAIL_PASS
+
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'raulrequec@gmail.com',
-    pass: ''
+    user,
+    pass
   }
 });
 
 router.post('/', (req) => {
   const { email, subject, message } = req.body
-  console.log(req.body)
 
   transporter.sendMail({
     from: email,
     to: 'raulrequec@gmail.com',
-    subject: subject,
-    html: message
+    subject: `Email from ${email}: ${subject}`,
+    text: message
   })
   .then(info => console.log(info))
   .catch(error => console.log(error))
