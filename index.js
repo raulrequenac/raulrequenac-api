@@ -22,4 +22,7 @@ const normalizePort = (val) => {
 const port = normalizePort(process.env.PORT || '5000')
 app.listen(port, () => console.log(`Listening on port ${port}`))
 
-router.post('/', (req) => mailer.sendEmail(req.body))
+router.post('/', (req, res) => {
+  mailer.sendEmail(req.body)
+  res.status(201).json(req.body)
+})
