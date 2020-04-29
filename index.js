@@ -19,9 +19,7 @@ const normalizePort = (val) => {
     return false;
 }
 
-const port = normalizePort('3000')
+const port = normalizePort('5000')
 app.listen(port, () => console.log(`Listening on port ${port}`))
 
-router.post('/', (req) => console.log(req.body))
-
-// mailer.sendEmail(req.body)
+router.post('/', (req) => mailer.sendEmail(req.body))
