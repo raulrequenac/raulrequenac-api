@@ -11,7 +11,8 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-module.exports.sendEmail = (email) => {
+module.exports.sendEmail = ({ email, subject, message }) => {
+
   transporter.sendMail({
     from: email,
     to: 'raulrequec@gmail.com',
